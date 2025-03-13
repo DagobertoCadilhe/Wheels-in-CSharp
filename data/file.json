@@ -1,0 +1,14 @@
+[
+  {
+    "_depositAmount": 100.0,
+    "_dailyRate": 10.0
+  },
+  {
+    "_depositAmount": 150.0,
+    "_dailyRate": 15.0
+  },
+  {
+    "_depositAmount": 200.0,
+    "_dailyRate": 20.0
+  }
+]
