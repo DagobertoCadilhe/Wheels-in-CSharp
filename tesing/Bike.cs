@@ -26,10 +26,5 @@ namespace Wheels
         {
             Console.WriteLine($"Bike info: ID : {_id} | DepositAmount : {_depositAmount} | DailyRate : {_dailyRate}");
         }
-
-        public void ReturnAll()
-        {
-            _allBikes.ForEach(b => b.ReturnInformation());
-        }
     }
 }
