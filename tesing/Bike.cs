@@ -13,6 +13,36 @@ namespace Wheels
         private double _depositAmount { get; set; }
         private double _dailyRate { get; set; }
 
+        public int Id 
+        { 
+            get { return _id; }
+        }
+
+        public double DepositAmount
+        {
+            get { return _depositAmount; }
+            set
+            {
+                if(value < 0)
+                {
+                    throw new ArgumentException("Deposit amount cant be negative!");
+                }
+                _depositAmount = value;
+            }
+        }
+
+        public double DailyRate
+        {
+            get { return _dailyRate; }
+            set
+            {
+                if(value > 0)
+                {
+                    throw new ArgumentException("Daily rate cant be negative!");
+                }
+            }
+        }
+
         public Bike(double DepositAmount, double DailyRate)
         {
             _id = _nextId++;
