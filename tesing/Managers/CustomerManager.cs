@@ -1,41 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Wheels;
 
-namespace Wheels
+internal class CustomerManager
 {
-    internal class CustomerManager
+    private readonly List<Customer> _customers = new List<Customer>
     {
-        private readonly List<Customer> _customers = new List<Customer>
+        new Customer(123456789, "Alice Johnson", "alice@example.com", 1234567890),
+        new Customer(987654321, "Bob Smith", "bob@example.com", 1234567890),
+        new Customer(456789123, "Charlie Brown", "charlie@example.com", 1234567890)
+    };
+
+
+    public void ReturnRegistredCustomers()
+    {
+        if (_customers != null)
         {
-            new Customer(123456789, "Alice Johnson", "alice@example.com", 1234567890),
-            new Customer(987654321, "Bob Smith", "bob@example.com", 1234567890),
-            new Customer(456789123, "Charlie Brown", "charlie@example.com", 1234567890)
-        };
-
-
-        public void ReturnRegistredCustomers()
+            _customers.ForEach(c => c.ReturnInformation());
+        }
+        else
         {
-            if (_customers != null)
-            {
-                _customers.ForEach(c => c.ReturnInformation());
-            }
-            else
-            {
-                Console.WriteLine("There are no registred customers yet");
-            }
-
+            Console.WriteLine("There are no registred customers yet");
         }
 
-        public void RegisterCustomer(Customer customer)
+    }
+
+    public Customer ReturnCustomerById(int id)
+    {
+        var bikeToReturn = _customers.FirstOrDefault(b => b.Id == id);
+
+        if (bikeToReturn != null)
         {
-            _customers.Add(customer);
+            return bikeToReturn;
         }
-        public void RemoveCustomer(Customer customer)
+        else
         {
-            _customers.Remove(customer);
+            throw new ArgumentException("No bikes where found to be returned");
         }
+    }
+
+    public void RegisterCustomer(Customer customer)
+    {
+        _customers.Add(customer);
+    }
+    public void RemoveCustomer(Customer customer)
+    {
+        _customers.Remove(customer);
     }
 }

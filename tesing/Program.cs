@@ -1,94 +1,128 @@
-﻿namespace Wheels
-{
-    public class Program 
-    { 
-        static void Main(string[] args)
+﻿namespace Wheels;
+
+public class Program 
+{ 
+    static void Main(string[] args)
+    {
+        int option = -1;
+        
+        RentalManager rentalManager = new RentalManager();
+        CustomerManager customerManager = new CustomerManager();
+        BikeManager bikeManager = new BikeManager();
+        
+
+        while (option == -1)
         {
-            int option = -1;
-            
-            RentalManager rentalManager = new RentalManager();
-            CustomerManager customerManager = new CustomerManager();
-            BikeManager bikeManager = new BikeManager();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("===========================================");
+            Console.WriteLine("         Welcome to Bike Rental System    ");
+            Console.WriteLine("===========================================");
+            Console.ResetColor();
 
-            while (option == -1)
+            Console.WriteLine("\nChoose an option:");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("1. Register Customer");
+            Console.WriteLine("2. Rent a Bike");
+            Console.WriteLine("3. Return a Bike");
+            Console.WriteLine("4. List Available Bikes");
+            Console.WriteLine("5. List Registered Customers");
+            Console.WriteLine("0. Exit");
+            Console.ResetColor();
+
+            Console.Write("\nChoose: ");
+
+            int.TryParse(Console.ReadLine(), out option);
+            switch (option)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("===========================================");
-                Console.WriteLine("         Welcome to Bike Rental System    ");
-                Console.WriteLine("===========================================");
-                Console.ResetColor();
+                case 1:
+                    int id = -1;
+                    string name = "";
+                    string email = "";
+                    int phone = -1;
 
-                Console.WriteLine("\nChoose an option:");
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("1. Register Customer");
-                Console.WriteLine("2. Rent a Bike");
-                Console.WriteLine("3. Return a Bike");
-                Console.WriteLine("4. List Available Bikes");
-                Console.WriteLine("5. List Registered Customers");
-                Console.WriteLine("0. Exit");
-                Console.ResetColor();
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("=====================================");
+                    Console.WriteLine("          Register New Customer      ");
+                    Console.WriteLine("=====================================");
+                    Console.ResetColor();
 
-                Console.Write("\nChoose: ");
+                    Customer registerCustomer = new Customer(id, name, email, phone);
 
-                int.TryParse(Console.ReadLine(), out option);
-                switch (option)
-                {
-                    case 1:
-                        int id = -1;
-                        string name = "";
-                        string email = "";
-                        int phone = -1;
+                    Console.WriteLine("\nEnter personal id: ");
+                    int.TryParse(Console.ReadLine(), out id);
+                    registerCustomer.PersonalId = id;
 
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("=====================================");
-                        Console.WriteLine("          Register New Customer      ");
-                        Console.WriteLine("=====================================");
-                        Console.ResetColor();
+                    Console.WriteLine("\nEnter Full Name: ");
+                    name = Console.ReadLine();
+                    registerCustomer.Name = name;
 
-                        Customer registerCustomer = new Customer(id, name, email, phone);
+                    Console.WriteLine("\nEnter Email Address: ");
+                    email = Console.ReadLine();
+                    registerCustomer.Email = email;
 
-                        Console.WriteLine("\nEnter personal id: ");
-                        int.TryParse(Console.ReadLine(), out id);
-                        registerCustomer.PersonalId = id;
+                    Console.WriteLine("\nEnter Phone Number: ");
+                    int.TryParse(Console.ReadLine(), out phone);
+                    registerCustomer.Phone = phone;
+                    
 
-                        Console.WriteLine("\nEnter Full Name: ");
-                        name = Console.ReadLine();
-                        registerCustomer.Name = name;
+                    customerManager.RegisterCustomer(registerCustomer);
 
-                        Console.WriteLine("\nEnter Email Address: ");
-                        email = Console.ReadLine();
-                        registerCustomer.Email = email;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\nCustomer Registered Successfully!");
+                    Console.ResetColor();
 
-                        Console.WriteLine("\nEnter Phone Number: ");
-                        int.TryParse(Console.ReadLine(), out phone);
-                        registerCustomer.Phone = phone;
-                        
+                    break;
 
-                        customerManager.RegisterCustomer(registerCustomer);
+                case 2:
+                    rentalManager.RentBike();
+                    break;
 
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\nCustomer Registered Successfully!");
-                        Console.ResetColor();
+                case 3:
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("=====================================");
+                    Console.WriteLine("              Return Bike            ");
+                    Console.WriteLine("=====================================");
+                    Console.ResetColor();
 
-                        break;
+                    Console.WriteLine("\nEnter personal bike id: ");
+                    int.TryParse(Console.ReadLine(), out id);
 
-                    case 2:
-                        rentalManager.RentBike();
-                        break;
+                    bikeManager.WhereIsBike(id);
+                    break;
 
-                    case 3:
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("=====================================");
-                        Console.WriteLine("              Return Bike            ");
-                        Console.WriteLine("=====================================");
-                        Console.ResetColor();
+                case 4:
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("=====================================");
+                    Console.WriteLine("            Avalible Bikes           ");
+                    Console.WriteLine("=====================================");
+                    Console.ResetColor();
 
-                        Console.WriteLine("\nEnter personal bike id: ");
-                        int.TryParse(Console.ReadLine(), out id);
+                    Console.WriteLine("Avalible Bikes : ");
 
-                        bikeManager.WhereIsBike(id);
-                        break;
-                }
+                    bikeManager.ReturnAvalibleBikes();
+                    break;
+
+                case 5:
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("=====================================");
+                    Console.WriteLine("          Registred Customers        ");
+                    Console.WriteLine("=====================================");
+                    Console.ResetColor();
+
+                    customerManager.ReturnRegistredCustomers();
+                    break;
+                case 6:
+                    DateTime dateTime = DateTime.Now;
+                    Bike bike = new Bike(150, 18);
+                    Customer customer = new Customer(456789123, "Charlie Brown", "charlie@example.com", 1234567890);
+                    Hire hire = new Hire(dateTime, 10, bike, customer);
+
+                    hire.DisplayHireInformation();
+                    break;
             }
         }
     }
